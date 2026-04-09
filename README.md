@@ -22,7 +22,7 @@ project/
 ```
 #### Fitxer `app.py`
 
-En projectes més complexos, es separaria, per exemple, la connexió a MongoDB en un fitxer a banda, anomenat `database.py`; i, els models, en `models.py`.
+En projectes més complexos,  es separaria, per exemple, la connexió a MongoDB en un fitxer a banda, anomenat `database.py`; i, els models, en `models.py`.
 En el nostre cas, tot el backend l'implementarem dins del fitxer `app.py` per simplificar.
 
 Tot i això, és **molt recomanable**:
