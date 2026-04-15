@@ -4,4 +4,4 @@ pymongo
 pydantic
 pydantic-settings
 email-validator
-
+python-dotenv
