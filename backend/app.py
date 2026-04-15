@@ -7,6 +7,22 @@ from typing_extensions import Annotated
 from pymongo import AsyncMongoClient, ReturnDocument
 from bson import ObjectId
 from bson.errors import InvalidId
+from dotenv import load_dotenv
+
+# ------------------------------------------------------------------------ #
+# 0. CARREGA DE VARIABLES D'ENTORN (.env)                                  #
+# ------------------------------------------------------------------------ #
+# Hem afegit l'ús d'un fitxer .env per motius de SEGURETAT i BONES PRÀCTIQUES.
+# Raó: Mai hem d'escriure contrasenyes o URLs sensibles directament al codi 
+# (hardcoding), ja que si pugem el projecte a GitHub, qualsevol podria veure-les.
+# Amb el .env, les credencials es queden només al teu ordinador.
+
+# Com funciona load_dotenv():
+# Aquesta funció busca un fitxer anomenat '.env' a la mateixa carpeta on està 
+# aquest script. Si el troba, llegeix el seu contingut i afegeix les variables 
+# que hi hagi escrites (com MONGODB_URL) a la memòria del sistema (os.environ).
+# Així, després podem recuperar-les utilitzant os.environ.get().
+load_dotenv()
 
 # ------------------------------------------------------------------------ #
 # 1. INICIALITZACIÓ DE L'APLICACIÓ                                         #
