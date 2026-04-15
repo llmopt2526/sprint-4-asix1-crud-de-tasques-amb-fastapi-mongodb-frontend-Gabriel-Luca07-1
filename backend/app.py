@@ -29,8 +29,8 @@ mongodb_url = os.environ.get("MONGODB_URL", "mongodb://localhost:27017")
 client = AsyncMongoClient(mongodb_url)
 
 # Seleccionem la base de dades i la col·lecció on es guardaran els documents
-db = client.movies_database
-movies_collection = db.get_collection("movies")
+db = client.Sprint4_Pelicules
+movies_collection = db.get_collection("Pelicules")
 
 # Definim PyObjectId com un string serialitzable per JSON. 
 # MongoDB utilitza '_id' de tipus 'ObjectId', i això ajuda a que el 
