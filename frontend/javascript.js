@@ -1,80 +1,128 @@
-//===Any global variables whose scope will need to be across the entire file...
-var currentId;
+/* =======================================================================
+   1. CONFIGURACIÓ PRINCIPAL I REFERÈNCIES
+   Definim la URL on treballa FastAPI. També "capturem" els elements del 
+   nostre HTML (formulari i taula) utilitzant el seu ID perquè el JS pugui
+   interactuar amb ells.
+   ======================================================================= */
+const API_URL = "http://localhost:8000"; 
+const formulari = document.getElementById('formulari-tasca');
+const taulaTasques = document.getElementById('taula-tasques');
 
-//===Actually, I am kind of a big fan of defining a Global object, or something
-//	 similar to store all of my page-level variables to. Something like:
-var Global = {
-	currentId: undefined,
-	action: 'create',
-	user: {
-		userName: 'Bob',
-		email: 'bgibilaro@valexander.com',
-		extension: '2470'
-	}
-};
+/* =======================================================================
+   2. READ: OBTENIR I MOSTRAR LES TASQUES (GET)
+   Funció clau. Fa un 'fetch' (una trucada) a FastAPI per demanar les dades.
+   L'ús de 'await' fa que el codi s'esperi fins que MongoDB respongui abans 
+   de continuar. Després fabrica una fila d'HTML per cada tasca trobada.
+   ======================================================================= */
+async function carregarTasques() {
+    try {
+        const resposta = await fetch(`${API_URL}/tasques`);
+        const tasques = await resposta.json();
 
-// this allows me to get those values anywhere in the page with
-// something like Global.currentId or Global.user.userName. I can also set it by saying
-// Global.currentId = 2. I can even add to it on-the-fly by saying
-// Global.newVariable = 'something' which is now available over the
-// entirety of that page....
+        // Netejar la taula per evitar duplicar contingut al recarregar
+        taulaTasques.innerHTML = "";
 
-//===My document.ready() handler...
-$(document).ready(function(){
+        tasques.forEach(tasca => {
+            // Si la tasca està feta, preparem les variables de CSS i del Checkbox
+            const esCompletada = tasca.completada ? 'tasca-completada' : '';
+            const check = tasca.completada ? 'checked' : '';
 
-	//=== do some code stuff...
-
-	//===finally, bind my events...
-	bindEvents();
-});
-
-//===This function handles event binding for anything on the page....
-function bindEvents(){
-	// So, something simply like binding to a static anchor tag...
-	$('#aSomeLink').on('click', function(event){
-
-		// do some cool code stuff...
-		// Mr. Wizard Time: try putting a break point someplace in here and
-		//	then investigate the event argument. All sorts of cool stuff can
-		//	come from there. In fact, what if I wanted to assign the link that
-		//	was clicked to a local variable?
-
-		// I could do this...
-		$a = $(this);	// note, prefixing the variable with bling ($) is just a 
-						// nice way for us to know that it is a jQuery object...
-
-		// Or, I could do this...
-		$a = $(event.target);
-
-		// I could also get the id of the link like so:
-		var id = event.target.id;
-
-		// not a big difference, but it is nice to use native JavaScript when you can. 
-	});
-
-	// Hey, but I can also do something cooler with the on method. What if I have a table
-	//	full of documents on the page with the option to edit, delete, etc. each of the table
-	//	rows. I can handle this in one nice bind using on. for the sake of this example, let's
-	//	assume I gave the "delete" link an attribute of rel="delete" and the "edit" link an 
-	//	attribute of rel="edit", I could do the following:
-	$('#myTable').on('click', 'a[rel=delete],a[rel=edit]', function(event){
-		$a = $(event.target);
-
-		switch($a.attr('rel')){
-			case 'edit':
-
-				// do some stuff or call a function...
-				
-				break;
-			case 'delete':
-				// do some stuff or call a function...
-
-				break;
-		}
-	});
-
-	// the above allows you to setup your bindings one time, when the page loads and then forget about
-	//	it. It will apply those bindings any time a new row is added to #myTable, automagically...
+            // Utilitzem cometes inverses (`) per injectar codi HTML i variables
+            const fila = `
+                <tr class="${esCompletada}">
+                    <td>
+                        <input type="checkbox" ${check} onchange="actualitzarTasca('${tasca.id}', ${tasca.completada})">
+                    </td>
+                    <td><strong>${tasca.titol}</strong></td>
+                    <td>${tasca.descripcio || '-'}</td>
+                    <td>
+                        <button class="button boto-esborrar" onclick="esborrarTasca('${tasca.id}')">Esborrar</button>
+                    </td>
+                </tr>
+            `;
+            // Afegim la fila construïda a l'HTML real de la pàgina
+            taulaTasques.innerHTML += fila;
+        });
+    } catch (error) {
+        console.error("Error al carregar les tasques:", error);
+    }
 }
 
-//===Then everything below this is all of the other declared functions for my page...
+/* =======================================================================
+   3. CREATE: CREAR UNA TASCA NOVA (POST)
+   Això escolta l'esdeveniment 'submit' (quan l'usuari clica a Afegir).
+   Usem event.preventDefault() per evitar que el navegador recarregui la
+   pàgina (el comportament antic dels formularis) i ho enviem per darrere.
+   ======================================================================= */
+formulari.addEventListener('submit', async function(event) {
+    event.preventDefault(); 
+
+    // Muntem l'objecte JSON amb el que l'usuari ha escrit a les caixes
+    const novaTasca = {
+        titol: document.getElementById('titolTasca').value,
+        descripcio: document.getElementById('descTasca').value,
+        completada: false
+    };
+
+    try {
+        await fetch(`${API_URL}/tasques`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(novaTasca)
+        });
+
+        // Buidem les caixes de text del formulari
+        formulari.reset(); 
+        // Tornem a carregar la taula perquè aparegui la nova tasca visualment
+        carregarTasques(); 
+    } catch (error) {
+        console.error("Error al crear la tasca:", error);
+    }
+});
+
+/* =======================================================================
+   4. UPDATE: ACTUALITZAR L'ESTAT (PUT o PATCH)
+   S'activa quan marquem/desmarquem un checkbox. Envia a FastAPI l'ordre de 
+   canviar l'estat a l'invers (si estava false ho passa a true i viceversa).
+   ======================================================================= */
+async function actualitzarTasca(id, estatActual) {
+    try {
+        await fetch(`${API_URL}/tasques/${id}`, {
+            method: 'PUT', // CANVIA A 'PATCH' SI AL TEU FASTAPI HO TENS COM A PATCH
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ completada: !estatActual })
+        });
+        
+        // Recarreguem la taula perquè s'apliqui la línia ratllada del CSS
+        carregarTasques(); 
+    } catch (error) {
+        console.error("Error en actualitzar:", error);
+    }
+}
+
+/* =======================================================================
+   5. DELETE: ESBORRAR UNA TASCA
+   S'activa al clicar el botó vermell. Fa saltar un avís (confirm) per 
+   evitar esborrats accidentals abans de llançar el mètode DELETE al backend.
+   ======================================================================= */
+async function esborrarTasca(id) {
+    if(confirm("N'estàs segur de voler esborrar aquesta tasca?")) {
+        try {
+            await fetch(`${API_URL}/tasques/${id}`, {
+                method: 'DELETE'
+            });
+            // Recarreguem la taula perquè la tasca desaparegui visualment
+            carregarTasques();
+        } catch (error) {
+            console.error("Error en esborrar:", error);
+        }
+    }
+}
+
+/* =======================================================================
+   6. INICI DE L'APLICACIÓ
+   Aquesta línia és vital. Quan el navegador acaba de llegir tot aquest arxiu,
+   executa aquesta funció automàticament perquè la taula s'ompli de dades
+   el mateix segon en què obres la pàgina web.
+   ======================================================================= */
+carregarTasques();
