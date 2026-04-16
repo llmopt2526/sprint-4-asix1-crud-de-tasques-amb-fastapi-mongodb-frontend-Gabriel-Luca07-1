@@ -1,9 +1,62 @@
-<!doctype html>
-<html>
-  <head>
-    <title>This is the title of the webpage!</title>
-  </head>
-  <body>
-    <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
-  </body>
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Tasques - Sprint 4</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="row">
+            <div class="twelve columns">
+                <h2>El Meu Gestor de Tasques</h2>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="twelve columns">
+                <form id="formulari-tasca">
+                    <div class="row">
+                        <div class="six columns">
+                            <label for="titolTasca">Títol de la tasca</label>
+                            <input class="u-full-width" type="text" placeholder="Ex: Estudiar Git" id="titolTasca" required>
+                        </div>
+                        <div class="six columns">
+                            <label for="descTasca">Descripció (opcional)</label>
+                            <input class="u-full-width" type="text" placeholder="Ex: Repassar com fer merge" id="descTasca">
+                        </div>
+                    </div>
+                    <button class="button-primary" type="submit">Afegir Tasca</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="twelve columns">
+                <table class="u-full-width">
+                    <thead>
+                        <tr>
+                            <th>Fet</th>
+                            <th>Títol</th>
+                            <th>Descripció</th>
+                            <th>Accions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="taula-tasques">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="javascript.js"></script>
+</body>
 </html>
