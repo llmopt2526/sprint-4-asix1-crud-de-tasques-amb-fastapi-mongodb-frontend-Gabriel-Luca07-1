@@ -1,62 +1,153 @@
 /* =========================================================================
-   ESTILS PERSONALITZATS
-   Tot i que Skeleton fa la major part de la feina visual, aquí afegeixo 
-   els meus propis retocs per deixar-ho tot exactament com vull.
+   ESTILS PERSONALITZATS 
+   He reescrit gran part de l'aparença visual per donar-li un aspecte més 
+   modern, net i minimalista.
    ========================================================================= */
 
-/* Afegeixo un color de fons molt suau a tota la pàgina perquè no sigui totalment blanca */
+/* 1. TIPOGRAFIA I FONS GLOBAL */
 body {
-    background-color: #f9f9f9;
+    /* Un gris molt suau de fons perquè la "targeta" blanca de l'aplicació destaqui. */
+    background-color: #F3F4F6;
+    /* Imposo la font Inter a tot el document, trepitjant la Raleway de Skeleton. */
+    font-family: 'Inter', sans-serif;
+    color: #374151; /* Un gris fosc llegible per al text general */
 }
 
-/* He creat aquesta classe per al meu contenidor principal.
-  Li poso un fons blanc, cantonades arrodonides i una petita ombra perquè 
-  sembli una "targeta" flotant sobre el fons gris.
-*/
+/* 2. CONTENIDOR PRINCIPAL (TARGETA) */
 .my-container {
     background-color: #ffffff;
-    padding: 3rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    margin-top: 40px;
-    margin-bottom: 40px;
+    padding: 4rem 3rem;
+    /* Arrodoneixo les cantonades de manera sutil */
+    border-radius: 12px;
+    /* Li aplico una ombra àmplia i molt difuminada per donar profunditat sense ser agressiva. */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
-/* Modifico el color del títol principal perquè destaqui una mica més */
+/* 3. TÍTOLS I ENCAPÇALAMENTS */
 .title {
-    color: #33C3F0; /* Aquest és el blau per defecte que utilitza Skeleton per als enllaços */
+    text-align: center;
+    color: #111827; /* Gairebé negre per donar pes i autoritat al títol */
+    font-weight: 700;
+    margin-bottom: 3.5rem;
+    letter-spacing: -0.025em; /* Ajunto una mica les lletres per fer-ho més sòlid */
+}
+
+.section-title {
+    color: #1F2937;
     font-weight: 600;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
+    font-size: 2.2rem;
+    border-bottom: 2px solid #E5E7EB; /* Una petita línia divisòria sota els subtítols per separar conceptes */
+    padding-bottom: 10px;
 }
 
-/* Faig que el text de les descripcions de les pel·lícules a la taula
-  sigui una mica més petit i gris, perquè no tregui protagonisme al títol.
-*/
-td small {
-    color: #888;
-    display: block; /* Faig que la descripció baixi a la següent línia sota el títol */
-    margin-top: 4px;
+/* 4. FORMULARI: INPUTS, TEXTAREAS I SELECTS */
+.custom-input {
+    border-radius: 6px !important; /* Arrodoneixo una mica les caixes de text */
+    border: 1px solid #D1D5DB !important; /* Una vora grisa molt fina */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02) !important;
+    transition: all 0.2s ease; /* Faig que les transicions (com el hover) siguin suaus */
 }
 
-/* Ajusto els botons de la taula (Editar / Esborrar) perquè siguin més petits
-  i no desquadrin l'alçada de les files.
-*/
-td .button {
-    height: 30px;
-    line-height: 30px;
-    padding: 0 10px;
-    margin-bottom: 0;
+/* Quan l'usuari clica un camp (focus), li canvio el color a un blau indi elegant en comptes del blau clar per defecte de Skeleton */
+.custom-input:focus {
+    border-color: #4F46E5 !important;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15) !important;
+    outline: none;
+}
+
+label {
+    font-weight: 500;
+    color: #4B5563;
+    margin-bottom: 4px;
+}
+
+/* 5. BOTONS (CALL TO ACTION) */
+/* He tret les lletres en majúscula de Skeleton perquè els botons en minúscula semblen més amigables i moderns. */
+.custom-btn-primary {
+    background-color: #4F46E5 !important; /* Blau indi fosc i professional */
+    border-color: #4F46E5 !important;
+    border-radius: 6px !important;
+    font-family: 'Inter', sans-serif;
+    text-transform: none !important; 
+    letter-spacing: normal !important;
+    font-weight: 500 !important;
+    font-size: 1.4rem !important;
+    transition: background-color 0.2s ease;
+}
+
+.custom-btn-primary:hover {
+    background-color: #4338CA !important; /* Es fa més fosc al passar el ratolí */
+    border-color: #4338CA !important;
+}
+
+.custom-btn-secondary {
+    border-radius: 6px !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-weight: 500 !important;
+}
+
+/* 6. LA TAULA DE PEL·LÍCULES */
+.custom-table th {
+    color: #6B7280; /* Titulars de columna en gris per no competir amb les dades */
+    font-weight: 600;
+    text-transform: uppercase;
     font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #E5E7EB;
+    padding-bottom: 15px;
 }
 
-/* Canvio el color del text del botó 'Esborrar' a vermell per alertar del perill */
-td .button-clear {
-    color: #E74C3C;
-    border-color: #E74C3C;
+.custom-table td {
+    padding: 15px 10px; /* Dono "aire" a les cel·les perquè la informació no estigui atapeïda */
+    border-bottom: 1px solid #F3F4F6; /* Línia molt suau entre registres */
+    vertical-align: middle;
 }
 
-/* Un petit efecte perquè quan passi el ratolí per sobre del botó esborrar, es vegi diferent */
-td .button-clear:hover {
-    background-color: #E74C3C;
-    color: white;
+/* Els títols de les pel·lícules a la taula tindran una mica més de pes visual */
+.custom-table td strong {
+    color: #111827;
+    font-size: 1.4rem;
+}
+
+/* La descripció de la pel·lícula en gris clar i més petita per establir una bona jerarquia visual */
+.custom-table td small {
+    color: #6B7280;
+    display: block;
+    margin-top: 4px;
+    font-size: 1.2rem;
+    line-height: 1.4;
+}
+
+/* 7. BOTONS D'ACCIÓ A LA TAULA (Editar i Esborrar) */
+.custom-table .button {
+    height: 32px;
+    line-height: 30px;
+    padding: 0 12px;
+    margin-bottom: 0;
+    font-size: 1.2rem;
+    text-transform: none;
+    letter-spacing: normal;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+/* Botó d'esborrar específic */
+.custom-table .button-clear {
+    color: #DC2626; /* Un vermell fosc i elegant per l'avís d'esborrar */
+    border: 1px solid transparent;
+}
+
+.custom-table .button-clear:hover {
+    background-color: #FEE2E2; /* Un fons vermell molt claret al fer hover, no invasiu */
+    color: #B91C1C;
+}
+
+.custom-table .button-outline:hover {
+    background-color: #F3F4F6;
+    color: #4F46E5;
+    border-color: #4F46E5;
 }
