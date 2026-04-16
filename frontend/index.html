@@ -1,1 +1,74 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Pel·lícules</title>
 
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container my-container">
+        <h2 class="title" style="text-align: center; margin-top: 5%;">🎬 Gestor de Pel·lícules</h2>
+
+        <div class="row">
+            
+            <div class="four columns">
+                <h4 id="form-title">Afegir Pel·lícula</h4>
+                
+                <form id="movie-form">
+                    <input type="hidden" id="movie-id">
+                    
+                    <label for="titol">Títol</label>
+                    <input class="u-full-width" type="text" id="titol" required>
+
+                    <label for="descripcio">Descripció</label>
+                    <textarea class="u-full-width" id="descripcio" required></textarea>
+
+                    <label for="estat">Estat</label>
+                    <select class="u-full-width" id="estat" required>
+                        <option value="pendent de veure">Pendent de veure</option>
+                        <option value="vista">Vista</option>
+                    </select>
+
+                    <label for="puntuacio">Puntuació (0-10)</label>
+                    <input class="u-full-width" type="number" id="puntuacio" min="0" max="10" required>
+
+                    <label for="genere">Gènere</label>
+                    <input class="u-full-width" type="text" id="genere" required>
+
+                    <label for="usuari">Usuari assignat</label>
+                    <input class="u-full-width" type="text" id="usuari" required>
+
+                    <button class="button-primary u-full-width" type="submit" id="submit-btn">Guardar</button>
+                    <button class="button u-full-width" type="button" id="cancel-btn" style="display: none;">Cancel·lar</button>
+                </form>
+            </div>
+
+            <div class="eight columns">
+                <h4>Llista de Pel·lícules</h4>
+                
+                <table class="u-full-width">
+                    <thead>
+                        <tr>
+                            <th>Títol i Descripció</th>
+                            <th>Estat</th>
+                            <th>Punts</th>
+                            <th>Gènere</th>
+                            <th>Usuari</th>
+                            <th>Accions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="movies-table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="javascript.js"></script>
+</body>
+</html>
