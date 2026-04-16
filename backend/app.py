@@ -8,7 +8,8 @@ from pymongo import AsyncMongoClient, ReturnDocument
 from bson import ObjectId
 from bson.errors import InvalidId
 from dotenv import load_dotenv
-
+# Importem l'eina específica de FastAPI per gestionar el CORS
+from fastapi.middleware.cors import CORSMiddleware
 # ------------------------------------------------------------------------ #
 # 0. CARREGA DE VARIABLES D'ENTORN (.env)                                  #
 # ------------------------------------------------------------------------ #
@@ -33,6 +34,24 @@ load_dotenv()
 app = FastAPI(
     title="API Gestor de Pel·lícules",
     summary="API REST amb FastAPI i MongoDB per gestionar pel·lícules",
+)
+
+# =======================================================================#
+# CONFIGURACIÓ DE SEGURETAT CORS (Cross-Origin Resource Sharing)
+# -----------------------------------------------------------------------#
+# Per defecte, els navegadors d'internet bloquegen per seguretat qualsevol 
+# petició que vagi d'un port a un altre (ex: del teu frontend al port 5500 
+# cap al teu backend al port 8000). 
+# Aquest "middleware" actua com un porter de discoteca i li dóna permís 
+# explícit al teu frontend perquè el backend accepti les seves dades.
+# =======================================================================#
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # Permet connexions des de qualsevol origen
+    allow_credentials=True,
+    allow_methods=["*"], # Permet GET, POST, PUT, DELETE...
+    allow_headers=["*"],
 )
 
 # ------------------------------------------------------------------------ #
