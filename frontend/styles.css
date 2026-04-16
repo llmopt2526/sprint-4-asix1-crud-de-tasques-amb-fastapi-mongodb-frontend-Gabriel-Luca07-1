@@ -1,21 +1,37 @@
-/* Applies to the entire body of the HTML document (except where overridden by more specific
-selectors). */
+/* =======================================================================
+   1. ESTILS GENERALS DEL BODY
+   Donem un marge a la part superior perquè el contenidor no quedi
+   completament enganxat a la vora de dalt del navegador.
+   ======================================================================= */
 body {
-  margin: 25px;
-  background-color: rgb(240,240,240);
-  font-family: arial, sans-serif;
-  font-size: 14px;
+    margin-top: 5rem;
 }
 
-/* Applies to all <h1>...</h1> elements. */
-h1 {
-  font-size: 35px;
-  font-weight: normal;
-  margin-top: 5px;
+/* =======================================================================
+   2. ESTAT DE LES TASQUES COMPLETADES
+   Aquesta classe s'afegirà dinàmicament amb JavaScript només a les 
+   tasques que tinguin completada=True a la base de dades.
+   text-decoration: line-through s'encarrega de fer l'efecte de text ratllat.
+   ======================================================================= */
+.tasca-completada {
+    text-decoration: line-through;
+    color: #888;
 }
 
-/* Applies to all elements with <... class="someclass"> specified. */
-.someclass { color: red; }
+/* =======================================================================
+   3. BOTONS PERSONALITZATS
+   Skeleton CSS pinta els botons de color blanc o blau. Aquí sobrescrivim
+   el disseny base per crear un botó vermell, ideal per a l'acció destructiva
+   d'esborrar (DELETE).
+   ======================================================================= */
+.boto-esborrar {
+    color: white;
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+}
 
-/* Applies to the element with <... id="someid"> specified. */
-#someid { color: green; }
+.boto-esborrar:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+    color: white;
+}
