@@ -1,1 +1,62 @@
+/* =========================================================================
+   ESTILS PERSONALITZATS
+   Tot i que Skeleton fa la major part de la feina visual, aquí afegeixo 
+   els meus propis retocs per deixar-ho tot exactament com vull.
+   ========================================================================= */
 
+/* Afegeixo un color de fons molt suau a tota la pàgina perquè no sigui totalment blanca */
+body {
+    background-color: #f9f9f9;
+}
+
+/* He creat aquesta classe per al meu contenidor principal.
+  Li poso un fons blanc, cantonades arrodonides i una petita ombra perquè 
+  sembli una "targeta" flotant sobre el fons gris.
+*/
+.my-container {
+    background-color: #ffffff;
+    padding: 3rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+/* Modifico el color del títol principal perquè destaqui una mica més */
+.title {
+    color: #33C3F0; /* Aquest és el blau per defecte que utilitza Skeleton per als enllaços */
+    font-weight: 600;
+    margin-bottom: 3rem;
+}
+
+/* Faig que el text de les descripcions de les pel·lícules a la taula
+  sigui una mica més petit i gris, perquè no tregui protagonisme al títol.
+*/
+td small {
+    color: #888;
+    display: block; /* Faig que la descripció baixi a la següent línia sota el títol */
+    margin-top: 4px;
+}
+
+/* Ajusto els botons de la taula (Editar / Esborrar) perquè siguin més petits
+  i no desquadrin l'alçada de les files.
+*/
+td .button {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    margin-bottom: 0;
+    font-size: 1.1rem;
+}
+
+/* Canvio el color del text del botó 'Esborrar' a vermell per alertar del perill */
+td .button-clear {
+    color: #E74C3C;
+    border-color: #E74C3C;
+}
+
+/* Un petit efecte perquè quan passi el ratolí per sobre del botó esborrar, es vegi diferent */
+td .button-clear:hover {
+    background-color: #E74C3C;
+    color: white;
+}
