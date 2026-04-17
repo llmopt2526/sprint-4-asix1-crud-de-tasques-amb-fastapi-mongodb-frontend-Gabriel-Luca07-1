@@ -118,3 +118,11 @@ A continuació es mostra l'aparença principal de l'aplicació un cop està en f
 
 <img width="1633" height="1013" alt="image" src="https://github.com/user-attachments/assets/07b1cfc9-7bdd-45f4-98cd-fe0120b9f083" />
 
+Video del funcionament de la pàgina:
+
+https://github.com/user-attachments/assets/471355d0-e1ab-4bb1-8def-0531560716e1
+
+
+
+
+
