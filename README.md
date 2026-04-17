@@ -2,6 +2,7 @@ Gestor de Pel·lícules: Full-Stack App amb FastAPI i Vanilla JS
 Aquest repositori conté el meu projecte personal per gestionar una col·lecció de pel·lícules. És una aplicació web Full-Stack dissenyada per permetre operacions de creació, lectura, actualització i esborrat (CRUD) de manera ràpida i intuïtiva, separant clarament la lògica del servidor (backend) de la interfície d'usuari (frontend).
 Estructura del projecte
 El projecte està organitzat en diferents directoris per mantenir el codi net i escalable:
+
 ├── .github/
 │   └── .keep
 ├── backend/
@@ -15,6 +16,7 @@ El projecte està organitzat en diferents directoris per mantenir el codi net i 
 │   └── styles.css
 └── tests/
     └── postman_API_tests.json
+    
 backend/: Conté tota la lògica del servidor construïda amb FastAPI i la connexió a MongoDB.
 
 frontend/: Conté els fitxers HTML, CSS, JS de la interfície d'usuari.
