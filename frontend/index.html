@@ -1,77 +1,108 @@
 <!DOCTYPE html>
 <html lang="ca">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestor de Pel·lícules</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
-    
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestor de Pel·lícules</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container my-container">
-        
-        <h2 class="title">Gestor de Pel·lícules</h2>
+<div class="app">
 
-        <div class="row">
-            
-            <div class="four columns">
-                
-                <h4 id="form-title" class="section-title">Afegir Pel·lícula</h4>
-                
-                <form id="movie-form">
-                    <input type="hidden" id="movie-id">
-                    
-                    <label for="titol">Títol</label>
-                    <input class="u-full-width custom-input" type="text" id="titol" placeholder="Ex: Interestelar" required>
-
-                    <label for="descripcio">Descripció</label>
-                    <textarea class="u-full-width custom-input" id="descripcio" placeholder="Breu sinopsi..." required></textarea>
-
-                    <label for="estat">Estat</label>
-                    <select class="u-full-width custom-input" id="estat" required>
-                        <option value="pendent de veure">Pendent de veure</option>
-                        <option value="vista">Vista</option>
-                    </select>
-
-                    <label for="puntuacio">Puntuació (0-10)</label>
-                    <input class="u-full-width custom-input" type="number" id="puntuacio" min="0" max="10" step="0.1" placeholder="Ex: 8.5" required>
-
-                    <label for="genere">Gènere</label>
-                    <input class="u-full-width custom-input" type="text" id="genere" placeholder="Ex: Ciència Ficció" required>
-
-                    <label for="usuari">Usuari assignat</label>
-                    <input class="u-full-width custom-input" type="text" id="usuari" placeholder="El teu nom" required>
-
-                    <button class="button-primary u-full-width custom-btn-primary" type="submit" id="submit-btn">Guardar</button>
-                    <button class="button u-full-width custom-btn-secondary" type="button" id="cancel-btn" style="display: none;">Cancel·lar</button>
-                </form>
-            </div>
-
-            <div class="eight columns">
-                <h4 class="section-title">Llista de Pel·lícules</h4>
-                
-                <table class="u-full-width custom-table">
-                    <thead>
-                        <tr>
-                            <th>Títol i Descripció</th>
-                            <th>Estat</th>
-                            <th>Punts</th>
-                            <th>Gènere</th>
-                            <th>Usuari</th>
-                            <th>Accions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="movies-table-body">
-                        </tbody>
-                </table>
-            </div>
-        </div>
+  <header class="header">
+    <div>
+      <div class="header-eyebrow">Col·lecció personal</div>
+      <h1>Gestor de <em>Pel·lícules</em></h1>
     </div>
+    <div class="header-stats">
+      <div class="stat">
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label">Total</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="stat-vistes">0</div>
+        <div class="stat-label">Vistes</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="stat-avg">—</div>
+        <div class="stat-label">Mitjana</div>
+      </div>
+    </div>
+  </header>
 
-    <script src="javascript.js"></script>
+  <div class="grid">
+
+    <aside class="panel">
+      <div class="panel-title" id="form-title">Afegir Pel·lícula</div>
+      <form id="movie-form">
+        <input type="hidden" id="movie-id">
+
+        <div class="field">
+          <label for="titol">Títol</label>
+          <input type="text" id="titol" placeholder="Ex: Interestelar" required>
+        </div>
+
+        <div class="field">
+          <label for="descripcio">Descripció</label>
+          <textarea id="descripcio" placeholder="Breu sinopsi..." required></textarea>
+        </div>
+
+        <div class="field">
+          <label for="estat">Estat</label>
+          <select id="estat" required>
+            <option value="pendent de veure">Pendent de veure</option>
+            <option value="vista">Vista</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="puntuacio">Puntuació (0–10)</label>
+          <div class="rating-wrap">
+            <input type="number" id="puntuacio" min="0" max="10" step="0.1" placeholder="Ex: 8.5" required>
+            <span class="rating-hint">/10</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="genere">Gènere</label>
+          <input type="text" id="genere" placeholder="Ex: Ciència Ficció" required>
+        </div>
+
+        <div class="field">
+          <label for="usuari">Usuari</label>
+          <input type="text" id="usuari" placeholder="El teu nom" required>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn btn-primary">Guardar</button>
+        <button type="button" id="cancel-btn" class="btn btn-ghost">Cancel·lar</button>
+      </form>
+    </aside>
+
+    <main>
+      <div class="list-header">
+        <div class="list-title">Llista de Pel·lícules</div>
+        
+        <div class="tabs">
+          <button class="tab active" data-filter="all">Totes</button>
+          <button class="tab" data-filter="vista">Vistes</button>
+          <button class="tab" data-filter="pendent">Pendents</button>
+        </div>
+      </div>
+
+      <div id="movies-list">
+        <div class="empty">
+          <p>Encara no hi ha pel·lícules. Afegeix-ne una!</p>
+        </div>
+      </div>
+    </main>
+
+  </div>
+</div>
+
+<script src="javascript.js"></script>
 </body>
 </html>
