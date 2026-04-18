@@ -1,4 +1,4 @@
-# Gestor de Pel·lícules: Full-Stack App amb FastAPI i Vanilla JS
+# Gestor de Pel·lícules
 
 Aquest repositori conté el meu projecte personal per gestionar una col·lecció de pel·lícules. És una aplicació web  dissenyada per permetre operacions de creació, lectura, actualització i esborrat (CRUD) de manera ràpida i intuïtiva, separant clarament la lògica del servidor (backend) de la interfície d'usuari (frontend).
 
