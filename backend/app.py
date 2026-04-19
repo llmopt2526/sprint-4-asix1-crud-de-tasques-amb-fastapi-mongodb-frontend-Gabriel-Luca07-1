@@ -85,7 +85,7 @@ class PeliculaModel(BaseModel):
     descripcio: str = Field(...)
     # 'pattern' assegura que l'estat només pugui ser un d'aquests dos valors exactes
     estat: str = Field(json_schema_extra={"pattern": "^(pendent de veure|vista)$"}, default="pendent de veure")
-    # Validem que la puntuació estigui entre 1 i 5
+    # Validem que la puntuació estigui entre 0 i 10
     puntuacio: int = Field(ge=0, le=10)
     genere: str = Field(...)
     usuari: str = Field(...) 
