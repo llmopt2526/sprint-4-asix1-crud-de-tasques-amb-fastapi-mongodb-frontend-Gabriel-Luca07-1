@@ -1,103 +1,128 @@
-### Estructura del projecte
+# Gestor de Pel·lícules
 
-A diferència d’altres projectes més complexos, en aquest cas **treballareu amb una estructura simple**, igual que a l’exemple oficial. Tot el backend s’ubica en un únic fitxer (`app.py`), amb l’objectiu de centrar-se en **aprendre CRUD amb FastAPI i MongoDB** abans de **modularitzar el codi**.
+Aquest repositori conté el meu projecte personal per gestionar una col·lecció de pel·lícules. És una aplicació web  dissenyada per permetre operacions de creació, lectura, actualització i esborrat (CRUD) de manera ràpida i intuïtiva, separant clarament la lògica del servidor (backend) de la interfície d'usuari (frontend).
 
-El projecte ha de mantenir una **estructura com aquesta**:
+---
+
+## Estructura del projecte
 
 ```
-project/
-├── README.md
-├── backend/                # FastAPI + MongoDB
-│   ├── app.py              # Fitxer principal (tota la lògica)
-│   └── requirements.txt    # Dependències
-│
-├── frontend/           # Interfície web
+├── .github/
+│   └── .keep
+├── backend/
+│   ├── .env
+│   ├── .gitignore
+│   ├── app.py
+│   └── requirements.txt
+├── frontend/
 │   ├── index.html
-│   ├── style.css
-│   └── app.js
-│
-└── tests/              # Tests amb Postman
-    └── Postman_API_tests.json
+│   ├── javascript.js
+│   └── styles.css
+└── tests/
+    └── postman_API_tests.json
 ```
-#### Fitxer `app.py`
 
-En projectes més complexos, es separaria, per exemple, la connexió a MongoDB en un fitxer a banda, anomenat `database.py`; i, els models, en `models.py`.
-En el nostre cas, tot el backend l'implementarem dins del fitxer `app.py` per simplificar.
+- **backend/**: Conté tota la lògica del servidor construïda amb FastAPI i la connexió a MongoDB.  
+- **frontend/**: Conté els fitxers HTML, CSS, JS de la interfície d'usuari.  
+- **tests/**: Inclou els fitxers necessaris per comprovar el bon funcionament de l'API.  
 
-Tot i això, és **molt recomanable**:
-- Afegir **grans comentaris per separar lògica** de connexió, models i endpoints.
-- **Documentar clarament cada secció** per facilitar la lectura i localització d’errors.
+---
 
-Un bon exemple seria aquest:
-```python
-import os
-from typing import Optional, List
+## Requisits previs
 
-from fastapi import FastAPI, Body, HTTPException, status
-from fastapi.responses import Response
-from pydantic import ConfigDict, BaseModel, Field, EmailStr
-from pydantic.functional_validators import BeforeValidator
-from typing_extensions import Annotated
+Abans de fer servir l'aplicació, has d'assegurar-te de tenir instal·lat al teu sistema:
 
-from bson import ObjectId
-import asyncio
-from pymongo import AsyncMongoClient
-from pymongo import ReturnDocument
+- Python 3.8 o una versió superior.  
+- Accés a una base de dades MongoDB (pot ser local o mitjançant MongoDB Atlas).  
+- Postman (opcional, però recomanat per executar els tests de l'API).  
 
-# ------------------------------------------------------------------------ #
-#                         Inicialització de l'aplicació                    #
-# ------------------------------------------------------------------------ #
-# Creació de la instància FastAPI amb informació bàsica de l'API
-app = FastAPI(
-    title="Student Course API",
-    summary="Exemple d'API REST amb FastAPI i MongoDB per gestionar informació d'estudiants",
-)
+---
 
-# ------------------------------------------------------------------------ #
-#                   Configuració de la connexió amb MongoDB               #
-# ------------------------------------------------------------------------ #
-# Creem el client de MongoDB utilitzant la URL de connexió emmagatzemada
-# a les variables d'entorn. Això evita incloure credencials dins del codi.
-client = AsyncMongoClient(os.environ["MONGODB_URL"])
+## Configuració del Backend
 
-# Selecció de la base de dades i de la col·lecció
-db = client.college
-student_collection = db.get_collection("students")
+El primer pas és posar en marxa el servidor de l'API. Totes les comandes següents s'han d'executar des de dins de la carpeta `backend/`.
 
-# Els documents de MongoDB tenen `_id` de tipus ObjectId.
-# Aquí definim PyObjectId com un string serialitzable per JSON,
-# que serà utilitzat als models Pydantic.
-PyObjectId = Annotated[str, BeforeValidator(str)]
+### Instal·lació de dependències
 
-# ------------------------------------------------------------------------ #
-#                            Definició dels models                        #
-# ------------------------------------------------------------------------ #
-class StudentModel(BaseModel):
-    """
-    Model que representa un estudiant.
-    Conté tots els camps obligatoris i opcional `_id`.
-    """
-    # Clau primària de l'estudiant. 
-    # MongoDB utilitza `_id`, però l'API exposa aquest camp com `id`.
-    id: Optional[PyObjectId] = Field(alias="_id", default=None)
-    
-    # Camps obligatoris de l'estudiant
-    name: str = Field(...)
-    email: EmailStr = Field(...)
-    course: str = Field(...)
-    gpa: float = Field(..., le=4.0)
+He preparat un fitxer `requirements.txt` amb totes les llibreries necessàries (com FastAPI, Uvicorn, Motor o Pydantic).
 
-    # Configuració addicional del model Pydantic
-    model_config = ConfigDict(
-        populate_by_name=True,  # Permet utilitzar alias al serialitzar/deserialitzar
-        arbitrary_types_allowed=True,  # Permet tipus personalitzats com ObjectId
-        json_schema_extra={
-            "example": {
-                "name": "Jane Doe",
-                "email": "jdoe@example.com",
-                "course": "Experiments, Science, and Fashion in Nanophotonics",
-                "gpa": 3.0,
-            }
-        },
-    )
+Per instal·lar-les:
+
+```bash
+cd backend
+pip install -r requirements.txt
 ```
+
+### Variables d'entorn (.env) i seguretat (.gitignore)
+
+Per connectar el backend amb la base de dades sense exposar credencials sensibles, utilitzo un fitxer anomenat `.env`.
+
+Dins d'aquesta carpeta `backend/`, has d'obrir aquest fitxer i configurar la teva pròpia URL de connexió a MongoDB. Hauria de tenir aquest format:
+
+```env
+MONGODB_URL="mongodb+srv://:@cluster.mongodb.net/el_teu_buid"
+```
+
+A la mateixa carpeta hi ha un fitxer `.gitignore`. Aquest fitxer és vital perquè indica a Git quins arxius no s'han de pujar mai al repositori públic.
+
+Principalment:
+- Ignora el fitxer `.env` (per protegir credencials)
+- Ignora la carpeta `__pycache__/` (fitxers temporals de Python)
+
+### Executar el servidor
+
+Un cop instal·lades les dependències i configurat el fitxer `.env`, pots arrencar el servidor amb:
+
+```bash
+uvicorn app:app --reload
+```
+
+---
+
+## Comprovació de l'API amb Postman (Tests)
+
+Abans d'obrir la pàgina web, és una bona pràctica comprovar que el backend funciona correctament i es connecta a la base de dades.
+
+Passos:
+
+1. Obre el programa Postman.  
+2. Ves a l'opció "Import" i selecciona el fitxer `postman_API_tests.json` que es troba dins la carpeta `tests/`.  
+3. Això carregarà una col·lecció de peticions (GET, POST, PUT, DELETE) preparades apuntant a `localhost:8000`.  
+4. Executa-les per verificar que el backend respon correctament i guarda les dades a MongoDB.  
+
+---
+<img width="1065" height="825" alt="image" src="https://github.com/user-attachments/assets/7242b6e4-abb0-4aae-acea-b16ad0140d81" />
+
+## Configuració del Frontend
+
+La part visual de l'aplicació no requereix cap procés d'instal·lació complex.
+
+- Ves a la carpeta `frontend/`.  
+- Obre el fitxer `index.html` directament amb el teu navegador web preferit (o utilitza eines com Live Server si utilitzes VS Code).  
+
+### Nota sobre la connexió
+
+El fitxer `javascript.js` té definida una constant `API_URL` que apunta a:
+
+```
+http://localhost:8000
+```
+
+Si decideixes desplegar el backend en un servidor remot de producció, hauràs de modificar aquesta línia amb la nova adreça.
+
+---
+
+## Visualització de la interfície
+
+A continuació es mostra l'aparença principal de l'aplicació un cop està en funcionament:
+
+<img width="1633" height="1013" alt="image" src="https://github.com/user-attachments/assets/07b1cfc9-7bdd-45f4-98cd-fe0120b9f083" />
+
+Video del funcionament de la pàgina:
+
+https://github.com/user-attachments/assets/471355d0-e1ab-4bb1-8def-0531560716e1
+
+
+
+
+

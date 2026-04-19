@@ -1,0 +1,144 @@
+{
+  "info": {
+    "_postman_id": "3cf06301-fc0a-41f3-9412-857bf2256c75",
+    "name": "Sprint 4 tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53781961",
+    "_collection_link": "https://go.postman.co/collection/53781961-3cf06301-fc0a-41f3-9412-857bf2256c75?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Obtenir totes les pel·lícules",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/pelicules/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "pelicules",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear una pel·lícula nova",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"titol\": \"Dune: Part Two\",\r\n  \"descripcio\": \"En Paul Atreides s'uneix als Fremen...\",\r\n  \"estat\": \"vista\",\r\n  \"puntuacio\": 9,\r\n  \"genere\": \"Ciència Ficció\",\r\n  \"usuari\": \"Gabii\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/pelicules/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "pelicules",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Llegir una pel·lícula específica",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/pelicules/69df4b8a65dbe348aef2afd1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "pelicules",
+            "69df4b8a65dbe348aef2afd1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualitzar una pel·lícula",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"titol\": \"Dune: Part Two\",\r\n  \"descripcio\": \"En Paul Atreides s'uneix als Fremen...\",\r\n  \"estat\": \"pendent de veure\",\r\n  \"puntuacio\": 10,\r\n  \"genere\": \"Ciència Ficció\",\r\n  \"usuari\": \"Gabriel\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/pelicules/69df4b8a65dbe348aef2afd1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "pelicules",
+            "69df4b8a65dbe348aef2afd1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Esborrar una pel·lícula",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/pelicules/69df4b8a65dbe348aef2afd1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "pelicules",
+            "69df4b8a65dbe348aef2afd1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

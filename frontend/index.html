@@ -1,9 +1,119 @@
-<!doctype html>
-<html>
-  <head>
-    <title>This is the title of the webpage!</title>
-  </head>
-  <body>
-    <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
-  </body>
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestor de Pel·lícules</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="header">
+    <div>
+      <div class="header-eyebrow">Col·lecció personal</div>
+      <h1>Gestor de <em>Pel·lícules</em></h1>
+    </div>
+    <div class="header-stats">
+      <div class="stat">
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label">Total</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="stat-vistes">0</div>
+        <div class="stat-label">Vistes</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="stat-avg">—</div>
+        <div class="stat-label">Mitjana</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <aside class="panel">
+      <div class="panel-title" id="form-title">Afegir Pel·lícula</div>
+      <form id="movie-form">
+        <input type="hidden" id="movie-id">
+
+        <div class="field">
+          <label for="titol">Títol</label>
+          <input type="text" id="titol" placeholder="Ex: Interestelar" required>
+        </div>
+
+        <div class="field">
+          <label for="descripcio">Descripció</label>
+          <textarea id="descripcio" placeholder="Breu sinopsi..." required></textarea>
+        </div>
+
+        <div class="field">
+          <label for="estat">Estat</label>
+          <select id="estat" required>
+            <option value="pendent de veure">Pendent de veure</option>
+            <option value="vista">Vista</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="puntuacio">Puntuació (0–10)</label>
+          <div class="rating-wrap">
+            <input type="number" id="puntuacio" min="0" max="10" step="1" placeholder="Ex: 8" required>
+            <span class="rating-hint">/10</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="genere">Gènere</label>
+          <select id="genere" required>
+            <option value="" disabled selected>Selecciona un gènere...</option>
+            <option value="Acció">Acció</option>
+            <option value="Animació">Animació</option>
+            <option value="Ciència Ficció">Ciència Ficció</option>
+            <option value="Comèdia">Comèdia</option>
+            <option value="Documental">Documental</option>
+            <option value="Drama">Drama</option>
+            <option value="Fantasia">Fantasia</option>
+            <option value="Terror">Terror</option>
+            <option value="Thriller">Thriller</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="usuari">Usuari</label>
+          <input type="text" id="usuari" placeholder="El teu nom" required>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn btn-primary">Guardar</button>
+        <button type="button" id="cancel-btn" class="btn btn-ghost">Cancel·lar</button>
+      </form>
+    </aside>
+
+    <main>
+      <div class="list-header">
+        <div class="list-title">Llista de Pel·lícules</div>
+        
+        <div class="tabs">
+          <button class="tab active" data-filter="all">Totes</button>
+          <button class="tab" data-filter="vista">Vistes</button>
+          <button class="tab" data-filter="pendent">Pendents</button>
+        </div>
+      </div>
+
+      <div id="movies-list">
+        <div class="empty">
+          <p>Encara no hi ha pel·lícules. Afegeix-ne una!</p>
+        </div>
+      </div>
+    </main>
+
+  </div>
+</div>
+
+<script src="javascript.js"></script>
+</body>
 </html>
